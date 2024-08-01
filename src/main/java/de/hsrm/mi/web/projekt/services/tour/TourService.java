@@ -18,4 +18,5 @@ public interface TourService {
     Tour speichereTour(Tour t);
     Tour speichereTourangebot(long anbieterid, Tour tour, long startortid, long zielortid);
     void loescheTourMitId(long id);
+    void makeDummys();
 }

@@ -118,4 +118,41 @@ public class TourServiceImpl implements TourService{
         return ortService.holeAlleOrte();
     }
 
+
+    @Override
+    public void makeDummys() {
+        Benutzer b1 = new Benutzer();
+        b1.setName("Merle");
+        b1.setEmail("merle.marie.erdmann@gmail.com");
+        b1.setGeburtstag(LocalDate.of(2002, 02, 06));
+        b1.setPasswort("17");
+
+        benutzerService.speichereBenutzer(b1);
+
+        Ort o1 = new Ort();
+        o1.setName("Wiesbaden");
+        o1.setGeolaenge(8.2416556);
+        o1.setGeobreite(50.0820384);
+
+        ortService.speichereOrt(o1);
+
+        Ort o2 = new Ort();
+        o2.setName("Oberdachstetten");
+        o2.setGeobreite(49.4158584);
+        o2.setGeolaenge(10.4234580);
+
+        ortService.speichereOrt(o2);
+
+        Tour t1 = new Tour();
+        t1.setAbfahrDateTime(LocalDateTime.of(2024, 9, 1, 12, 30));
+        t1.setAnbieter(b1);
+        t1.setStartOrt(o1);
+        t1.setZielOrt(o2);
+        t1.setPlaetze(3);
+        t1.setPreis(20);
+        t1.setInfo("Eine Fahrt von Wiesbaden nach Oberdachstetten");
+
+        speichereTour(t1);
+    }
+
 }

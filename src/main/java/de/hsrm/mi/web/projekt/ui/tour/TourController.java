@@ -187,4 +187,15 @@ public class TourController {
         m.addAttribute("tourid", longid);
         return "redirect:/" + tourString + "/" + longid;
     }
+
+    @GetMapping("/makeTouren")
+    public String getMethodName(Model m) {
+
+        tourService.makeDummys();
+
+        //Zeige alle Touren
+        List<Tour> alleTouren = tourService.holeAlleTouren();
+        m.addAttribute("alleTouren", alleTouren);
+        return "forward:/" + tourString;
+    }
 }
