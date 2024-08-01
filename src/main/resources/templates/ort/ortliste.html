@@ -28,8 +28,8 @@
             <td th:text="${ort.name}">name</td>
             <td th:text="${ort.geolaenge}">laenge</td>
             <td th:text="${ort.geobreite}">breite</td>
-            <td class="invisible"><a role="button" th:href="@{/ort/{id}(id=${ort.id})}" th:text="#{ortsliste.eintrag.bearbeiten}" class="bearbeiten">bearbeiten</a> </td>
-            <td class="invisible"><a role="button" th:href="@{/ort/{id}/del(id=${ort.id})}" th:text="#{ortsliste.eintrag.loeschen}" class="loeschen">löschen</a> </td>
+            <td class="invisible"><a role="button" th:href="@{/admin/ort/{id}(id=${ort.id})}" th:text="#{ortsliste.eintrag.bearbeiten}" class="bearbeiten">bearbeiten</a> </td>
+            <td class="invisible"><a role="button" th:href="@{/admin/ort/{id}/del(id=${ort.id})}" th:text="#{ortsliste.eintrag.loeschen}" class="loeschen">löschen</a> </td>
         </tr>
     </table>
 

@@ -37,8 +37,8 @@
             <td th:text="${tour.startOrt.name}">startort</td>
             <td th:text="${tour.zielOrt.name}">zielort</td>
             <td th:text="${tour.anbieter.name}">anbieter</td>
-            <td class="invisible"><a role="button" th:href="@{/tour/{id}(id=${tour.id})}" th:text="#{tourliste.eintrag.bearbeiten}" class="bearbeiten">bearbeiten</a> </td>
-            <td class="invisible"><a role="button" th:href="@{/tour/{id}/del(id=${tour.id})}" th:text="#{tourliste.eintrag.loeschen}" class="loeschen">löschen</a> </td>
+            <td class="invisible"><a role="button" th:href="@{/admin/tour/{id}(id=${tour.id})}" th:text="#{tourliste.eintrag.bearbeiten}" class="bearbeiten">bearbeiten</a> </td>
+            <td class="invisible"><a role="button" th:href="@{/admin/tour/{id}/del(id=${tour.id})}" th:text="#{tourliste.eintrag.loeschen}" class="loeschen">löschen</a> </td>
         </tr>
     </table>
 

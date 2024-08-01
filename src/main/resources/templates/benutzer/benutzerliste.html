@@ -29,8 +29,8 @@
             <td th:replace="~{benutzer/benutzerliste-zeile :: feldausgeben(benutzerid=${benutzer.id},feldname=name,wert=${benutzer.name})}">name</td>
             <td th:replace="~{benutzer/benutzerliste-zeile :: feldausgeben(benutzerid=${benutzer.id},feldname=email,wert=${benutzer.email})}">mail</td>
             <td th:text="${benutzer.geburtstag}">geburtstag</td>
-            <td class="invisible"><a role="button" th:href="@{/benutzer/{id}(id=${benutzer.id})}" th:text="#{benutzerliste.eintrag.bearbeiten}" class="bearbeiten">bearbeiten</a> </td>
-            <td class="invisible"><a role="button" th:href="@{/benutzer/{id}/del(id=${benutzer.id})}" th:text="#{benutzerliste.eintrag.loeschen}" class="loeschen">löschen</a> </td>
+            <td class="invisible"><a role="button" th:href="@{/admin/benutzer/{id}(id=${benutzer.id})}" th:text="#{benutzerliste.eintrag.bearbeiten}" class="bearbeiten">bearbeiten</a> </td>
+            <td class="invisible"><a role="button" th:href="@{/admin/benutzer/{id}/del(id=${benutzer.id})}" th:text="#{benutzerliste.eintrag.loeschen}" class="loeschen">löschen</a> </td>
         </tr>
     </table>
 
