@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>MIfahrzentrale</title>
+        <link rel="stylesheet"th:href="@{/css/style.css}" />
+        <th:block th:replace="~{fragments/kopffuss :: kopf}">Das sollte nicht erscheinen</th:block>
+        <div th:replace="~{fragments/kopffuss :: info}">wichtiges Zeug</div>
+    </head>
+<body>
+    <h1 th:text="#{ortsliste.titel}">Benutzerliste</h1>
+    <table>
+        <tr>
+            <th class="smol">ID</th>
+            <th th:text="#{ort.name}">name</th>
+            <th th:text="#{ort.geolaenge}">laenge</th>
+            <th th:text="#{ort.geobreite}">breite</th>
+            <th class="invisible"></th>
+            <th class="invisible"></th>
+        </tr>
+        <tr th:if="${#lists.size(alleOrte) lt 1}">
+            <td></td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+        </tr>
+        <tr th:each="ort : ${alleOrte}">
+            <td th:text="${ort.id}" class="smol">id</td>
+            <td th:text="${ort.name}">name</td>
+            <td th:text="${ort.geolaenge}">laenge</td>
+            <td th:text="${ort.geobreite}">breite</td>
+            <td class="invisible"><a role="button" th:href="@{/ort/{id}(id=${ort.id})}" th:text="#{ortsliste.eintrag.bearbeiten}" class="bearbeiten">bearbeiten</a> </td>
+            <td class="invisible"><a role="button" th:href="@{/ort/{id}/del(id=${ort.id})}" th:text="#{ortsliste.eintrag.loeschen}" class="loeschen">löschen</a> </td>
+        </tr>
+    </table>
+
+    <a th:text="#{ortsliste.neu}" th:href="@{/admin/ort/0}" class="neuex">neuer Ort</a>
+    <footer th:replace="~{fragments/kopffuss :: fuss}">Das hier auch nicht</footer>
+</body>
+</html>

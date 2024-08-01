@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>MIfahrzentrale</title>
+        <link rel="stylesheet"th:href="@{/css/style.css}" />
+        <th:block th:replace="~{fragments/kopffuss :: kopf}">Das sollte nicht erscheinen</th:block>
+        <div th:replace="~{fragments/kopffuss :: info}">wichtiges Zeug</div>
+    </head>
+<body>
+    <h1 th:if="${benutzerid} gt 0" th:text="#{benutzerprofil.titel(${benutzerid})}">Benutzerprofil id bearbeiten</h1>
+    <h1 th:if="${benutzerid} eq 0" th:text="#{benutzerprofil.titel.neu}">Benutzerprofil neu</h1>
+    <form th:action="@{#}" th:object="${benutzerformular}" modelAttribute="benutzerformular" method="post" th:method="POST">
+        <label th:text="#{benutzer.name}">Name</label><br/>
+        <input type="text" th:field="*{name}" name="name" size="40" maxlength="30" th:errorclass="error"/><br/>
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errortext">Name muss zwischen 3 und 80 Zeichen lang sein</p>
+        
+        <label th:text="#{benutzer.email}">E-Mail</label><br/>
+        <input type="text" th:field="*{email}" name="email" size="40" maxlength="30" th:errorclass="error"/><br/>
+        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="errortext">Keine korrekte E-Mailadresse</p>
+        
+        <label th:text="#{benutzer.passwort}">Passwort</label><br/>
+        <input type="password" th:field="*{pwort}" name="pwort" size="40" maxlength="30" th:errorclass="error"/><br/>
+        <p th:if="${#fields.hasErrors('pwort')}" th:errors="*{pwort}" class="errortext">Passwort muss cooler sein</p>
+        
+        <label th:text="#{benutzer.geburtstag}">Geburtstag</label><br/>
+        <input type="date" th:value="*{gtag}" name="gtag" size="40" th:errorclass="error"/><br/>
+        <p th:if="${#fields.hasErrors('gtag')}" th:errors="*{gtag}" class="errortext">Geburtstag muss in der Vergangenheit liegen</p>
+        
+        <label th:text="#{benutzer.magich}">ich mag</label> <p th:if="${#lists.size(benutzerformular.mag)} lt ${maxwunsch}" class="max">(max. <span th:text="${maxwunsch}">maxwunschzahl</span>)</p><br/>
+        <input th:if="${#lists.size(#lists.toList(benutzerformular.mag))} lt ${maxwunsch}" type="Text" th:field="*{mag}" name="mag" size="40" maxlength="20"/><br/>
+        <ul th:each="einmag : *{#lists.sort(#lists.toList(mag))}">
+            <li th:text="${einmag.toString}"></li>
+        </ul>
+        
+        <label th:text="#{benutzer.magichnicht}">ich mag nicht</label> <p th:if="${#lists.size(#lists.toList(benutzerformular.magnicht))} lt ${maxwunsch}" class="max">(max. <span th:text="${maxwunsch}">maxwunschzahl</span>)</p><br/>
+        <input th:if="${#lists.size(#lists.toList(benutzerformular.magnicht))} lt ${maxwunsch}" type="Text" th:field="*{magnicht}" name="magnicht" size="40" maxlength="20"/><br/>
+        <br/>
+        <ul th:each="einmagnicht : *{#lists.sort(#lists.toList(magnicht))}">
+            <li th:text="${einmagnicht.toString}"></li>
+        </ul>
+
+        <input type="Submit" name="ok" value="ok"><br/>
+    </form>
+    <footer th:replace="~{fragments/kopffuss :: fuss}">Das hier auch nicht</footer>
+</body>
+</html>

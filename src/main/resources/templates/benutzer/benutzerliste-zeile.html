@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet"th:href="@{/css/style.css}" />
+    </head>
+    <body>
+        <td th:fragment="feldausgeben(benutzerid,feldname,wert)">
+            <span th:hx-get="@{/benutzer/{id}/hx/feld/{feldname}(id=${benutzerid},feldname=${feldname})}" hx-target="closest td" hx-swap="outerHTML" th:text="${wert}">feldwert</span>
+        </td>
+        <td th:fragment="feldbearbeiten(benutzerid,feldname,wert)">
+            <form th:hx-put="@{/benutzer/{id}/hx/feld/{feldname}(id=${benutzerid},feldname=${feldname})}" hx-target="closest td" hx-swap="outerHTML" hx-trigger="submit" class="tabelleninput">
+                <input type="text" th:value="${wert}" name="wert" size="40" maxlength="30" class="tabelleninput"/>
+                <input type="submit" name="ok" value="ok" class="tabelleninput">
+            </form>
+        </td>
+    </body>
+</html>

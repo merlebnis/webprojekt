@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet" th:href="@{/css/style.css}" />
+    </head>
+    <body>
+        <th:block th:fragment="kopf">
+            <div class="header">
+                <span class="links">
+                    <img src="/images/Logox05.png" alt="Logo"> 
+                    <a th:text="#{kopf.benutzer}" th:href="@{/admin/benutzer}">Benutzer</a>
+                    <a th:text="#{kopf.orte}" th:href="@{/admin/ort}">Orte</a>
+                    <a th:text="#{kopf.touren}" th:href="@{/admin/tour}">Touren</a>
+                </span>
+                <span class="languages">
+                    <a th:href="@{?sprache=de}">DE</a>
+                    <a th:href="@{?sprache=en}">EN</a>
+                    <a th:href="@{?sprache=nl}">NL</a>
+                </span>
+            </div>
+        </th:block>
+        <div th:if="${info != null && info != ''}" class="info" th:fragment="info">
+            <p th:text="${info}" class="errortext">Hier stehen wichtige Infos</p>
+        </div>
+        <footer class="footer" th:fragment="fuss">
+            <a th:text="#{fuss.impressum}" th:href="@{#}">Impressum</a>
+            <a th:text="#{fuss.kontakt}" th:href="@{#}">Kontakt</a>
+        </footer>
+    </body>
+</html>

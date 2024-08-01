@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>MIfahrzentrale</title>
+        <link rel="stylesheet"th:href="@{/css/style.css}" />
+        <th:block th:replace="~{fragments/kopffuss :: kopf}">Das sollte nicht erscheinen</th:block>
+        <div th:replace="~{fragments/kopffuss :: info}">wichtiges Zeug</div>
+    </head>
+<body>
+    <h1 th:text="#{tourliste.titel}">Benutzerliste</h1>
+    <table>
+        <tr>
+            <th class="smol">ID</th>
+            <th th:text="#{tour.abfahrdatetime}">abfahrt</th>
+            <th th:text="#{tour.preis}">preis</th>
+            <th th:text="#{tour.plaetze}">plaetze</th>
+            <th th:text="#{tour.startort}">startort</th>
+            <th th:text="#{tour.zielort}">zielort</th>
+            <th th:text="#{tour.anbieter}">anbieter</th>
+            <th class="invisible"></th>
+            <th class="invisible"></th>
+        </tr>
+        <tr th:if="${#lists.size(alleTouren) lt 1}">
+            <td></td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+        </tr>
+        <tr th:each="tour : ${alleTouren}">
+            <td th:text="${tour.id}" class="smol">id</td>
+            <td th:text="${tour.abfahrDateTime}">abfahrt</td>
+            <td th:text="${tour.preis}">preis</td>
+            <td th:text="${tour.plaetze}">plaetze</td>
+            <td th:text="${tour.startOrt.name}">startort</td>
+            <td th:text="${tour.zielOrt.name}">zielort</td>
+            <td th:text="${tour.anbieter.name}">anbieter</td>
+            <td class="invisible"><a role="button" th:href="@{/tour/{id}(id=${tour.id})}" th:text="#{tourliste.eintrag.bearbeiten}" class="bearbeiten">bearbeiten</a> </td>
+            <td class="invisible"><a role="button" th:href="@{/tour/{id}/del(id=${tour.id})}" th:text="#{tourliste.eintrag.loeschen}" class="loeschen">löschen</a> </td>
+        </tr>
+    </table>
+
+    <a th:text="#{tourliste.neu}" th:href="@{/admin/tour/0}" class="neuex">neue Tour</a>
+    <footer th:replace="~{fragments/kopffuss :: fuss}">Das hier auch nicht</footer>
+</body>
+</html>

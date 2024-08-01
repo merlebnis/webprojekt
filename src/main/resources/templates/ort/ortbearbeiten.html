@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>MIfahrzentrale</title>
+        <link rel="stylesheet"th:href="@{/css/style.css}" />
+        <th:block th:replace="~{fragments/kopffuss :: kopf}">Das sollte nicht erscheinen</th:block>
+        <div th:replace="~{fragments/kopffuss :: info}">wichtiges Zeug</div>
+    </head>
+<body>
+    <h1 th:if="${ortid} gt 0" th:text="#{ortformular.titel(${ortid})}">Ort id bearbeiten</h1>
+    <h1 th:if="${ortid} eq 0" th:text="#{ortformular.titel.neu}">Ort neu</h1>
+    <form th:action="@{#}" th:object="${ortformular}" modelAttribute="ortformular" method="post" th:method="POST">
+        <label th:text="#{ort.name}">Name</label><br/>
+        <input type="text" th:field="*{name}" name="name" size="40" maxlength="30" th:errorclass="error"/><br/>
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errortext">Name muss zwischen 3 und 80 Zeichen lang sein</p>
+        
+        <label th:text="#{ort.geobreite}">Geobreite</label><br/>
+        <input type="number" th:field="*{geobreite}" name="geobreite" size="40" maxlength="30" th:errorclass="error"/><br/>
+        <p th:if="${#fields.hasErrors('geobreite')}" th:errors="*{geobreite}" class="errortext">Keine korrekte Geobreite</p>
+        
+        <label th:text="#{ort.geolaenge}">Passwort</label><br/>
+        <input type="number" th:field="*{geolaenge}" name="geolaenge" size="40" maxlength="30" th:errorclass="error"/><br/>
+        <p th:if="${#fields.hasErrors('geolaenge')}" th:errors="*{geolaenge}" class="errortext">Keine korrekte Geolaenge</p>
+        
+        <input type="Submit" name="ok" value="ok"><br/>
+        <a th:text="#{ortsliste.eintrag.karte}" th:href="|https://www.openstreetmap.org/search?query=${ortformular.geobreite} ${ortformular.geolaenge}#map=14|" target="_blank" class="neuex">Karte</a>
+    </form>
+    <footer th:replace="~{fragments/kopffuss :: fuss}">Das hier auch nicht</footer>
+</body>
+</html>

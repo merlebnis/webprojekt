@@ -1,0 +1,218 @@
+
+*{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color:hsl(0 0% 93%);
+}
+
+body {
+  background-color: rgb(37, 37, 37);
+  margin-top: 7%;
+  margin-bottom: 7%;
+  display: grid;
+  align-items: center;
+  padding-left: 7%;
+  padding-right: 7%;
+}
+
+form {
+  padding-top: 1em;
+  padding-bottom: 2em;
+}
+
+label{
+  display: inline;
+}
+
+.max{
+  display: inline;
+  margin: 0;
+}
+
+button{
+  color: white;
+  background-color: rgb(79, 87, 161);
+  border-radius: 1em;
+  border-color: rgb(79, 87, 161);
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+}
+
+input, select {
+  border: none;
+  background: hsl(0 0% 93%);
+  border-radius: .25rem;
+  padding: .75rem 1rem;
+  color:black;
+  margin-bottom: 2em;
+  
+  &[type="submit"] {
+    background: rgb(79, 87, 161);
+    color: white;
+    box-shadow: 0 .75rem .5rem -.5rem hsl(0, 1%, 30%);
+  }
+}
+
+.error{
+  border: 2px solid red;
+  color:red;
+}
+
+.errortext{
+  color:red;
+  padding-left: 2em;
+}
+
+.header, .footer{
+  background-color: rgb(255, 235, 121);
+  padding-top: 2%;
+  padding-bottom: 1%;
+  width: 100%;
+  position: fixed;
+  left:0;
+  
+  a:link, a:visited{
+    color: black;
+    font-size: x-large;
+    text-decoration: none;
+    padding-left:0.5em;
+    padding-right: 0.5em;
+  }
+
+  a:hover{
+    color: rgb(167, 161, 83);
+  }
+
+  .links{
+    padding-left: 3%;
+    display:inline-grid;
+    height: 30px;
+    grid-template-columns: auto auto auto auto;
+    
+    a{
+      text-align: center;
+    }
+  }
+
+  .languages{
+    float: right;
+    padding-right: 3%;
+  }
+}
+
+.header {
+  top: 0;
+
+  img{
+    height: 29px;
+    width: 32px;
+    margin-right: 2em;
+    margin-left: 1em;
+  }
+}
+
+.footer{
+  bottom:0;
+  padding-left: 3%;
+}
+
+.info{
+  border: 2px solid red;
+  border-style: inset;
+  background-color: hsl(0 0% 93%);
+
+  .errortext{
+    background-color: hsl(0 0% 93%);
+  }
+
+  .close{
+    background-color: red;
+    float: right;
+    margin: 1em;
+    border-radius: 2em;
+  }
+}
+
+.neuex{
+  margin-top: 5rem;
+
+  a:hover{
+    color: rgb(79, 87, 161);
+  }
+}
+
+table{
+  width: 100%;
+  padding-top: 0.75%;
+  padding-bottom: 0.75%;
+  padding-left: 0.75%;
+  padding-right: 0.75%;
+  table-layout: fixed;
+
+  td{
+    background-color: hsl(0 0% 93%);
+    color: black;
+    padding: 0.5em;
+    max-width: 30%;
+  }
+
+  span{
+    color: black;
+  }
+
+  a{
+    text-decoration:none;
+    color: hsl(0 0% 93%);
+    border-radius: .25rem;
+    text-align: center;
+    padding: 0.4em;
+  }
+
+}
+
+.bearbeiten{
+  background-color: rgb(79, 87, 161);
+}
+
+.loeschen{
+  background-color: rgb(240, 77, 77);
+}
+
+br{
+  margin-top: 1em;
+}
+
+.tabelleninput{
+  background-color: hsl(0 0% 93%);
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  font-size: inherit;
+
+  span{
+    padding: 0;
+  }
+
+  input[type=submit]{
+    width: 20%;
+  }
+
+  input[type=text]{
+    border-style: solid;
+    border-width: thin;
+    border-color: rgb(112, 112, 112);
+    padding-left: .75rem;
+    padding-right: .75rem;
+    width: 60%;
+  }
+}
+
+.smol{
+  width:2%;
+}
+
+.invisible{
+  background: rgba(0, 0, 0, 0);
+  width:90px;
+}

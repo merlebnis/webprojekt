@@ -1,0 +1,78 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.5'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'de.hsrm.mi.web'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '21'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	runtimeOnly 'com.h2database:h2'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+/*
+task genUebersetzungen(type: Exec) {
+    commandLine 'python3','uebersetzungen-to-properties.py'
+}
+compileJava.dependsOn genUebersetzungen
+*/
+
+// Frontend-Erstellung soll zusätzlich bei "./gradlew bootJar" ausgeführt werden
+
+task build_frontend {
+	doLast {
+		// JS-Pakete in Vue-Projekt installieren
+		exec {
+			workingDir "${projectDir}/frontend"
+			commandLine "npm install".split()
+		}
+
+		// Vue-Frontend bauen
+		exec {
+			workingDir "${projectDir}/frontend"
+			commandLine "npm run build".split()
+		}
+		// eventuell vorhandenes public-Verzeichnis in Spring-Projekt löschen
+		delete files("${projectDir}/src/main/resources/public")
+
+		// dist-Ordner aus Vue-Projekt als Spring "public"-Ordner in src/main/resources kopieren
+		copy {
+			from "${projectDir}/frontend/dist"
+			into "${projectDir}/src/main/resources/public"
+		}
+	}
+}
+bootJar.dependsOn build_frontend
+
+// Wenn "./gradlew clean" auch generierte/herunterladene Frontend-Ordner bereinigen soll
+
+task clean_frontend {
+	doLast {
+		delete files("${projectDir}/frontend/node_modules")
+		delete files("${projectDir}/frontend/dist")
+		delete files("${projectDir}/src/main/resources/public")
+		}
+}
+clean.dependsOn clean_frontend

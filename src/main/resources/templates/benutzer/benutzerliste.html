@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>MIfahrzentrale</title>
+        <link rel="stylesheet"th:href="@{/css/style.css}" />
+        <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
+        <th:block th:replace="~{fragments/kopffuss :: kopf}">Das sollte nicht erscheinen</th:block>
+        <div th:replace="~{fragments/kopffuss :: info}">wichtiges Zeug</div>
+    </head>
+<body>
+    <h1 th:text="#{benutzerliste.titel}">Benutzerliste</h1>
+    <table>
+        <tr>
+            <th class="smol">ID</th>
+            <th th:text="#{benutzer.name}">name</th>
+            <th th:text="#{benutzer.email}">mail</th>
+            <th th:text="#{benutzer.geburtstag}">geburtstag</th>
+            <th class="invisible"></th>
+            <th class="invisible"></th>
+        </tr>
+        <tr th:if="${#lists.size(alleNutzer) lt 1}">
+            <td></td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+        </tr>
+        <tr th:each="benutzer : ${alleNutzer}">
+            <td th:text="${benutzer.id}" class="smol">id</td>
+            <td th:replace="~{benutzer/benutzerliste-zeile :: feldausgeben(benutzerid=${benutzer.id},feldname=name,wert=${benutzer.name})}">name</td>
+            <td th:replace="~{benutzer/benutzerliste-zeile :: feldausgeben(benutzerid=${benutzer.id},feldname=email,wert=${benutzer.email})}">mail</td>
+            <td th:text="${benutzer.geburtstag}">geburtstag</td>
+            <td class="invisible"><a role="button" th:href="@{/benutzer/{id}(id=${benutzer.id})}" th:text="#{benutzerliste.eintrag.bearbeiten}" class="bearbeiten">bearbeiten</a> </td>
+            <td class="invisible"><a role="button" th:href="@{/benutzer/{id}/del(id=${benutzer.id})}" th:text="#{benutzerliste.eintrag.loeschen}" class="loeschen">löschen</a> </td>
+        </tr>
+    </table>
+
+    <a th:text="#{benutzerliste.neu}" th:href="@{/admin/benutzer/0}" class="neuex">neuer Benutzer</a>
+    <footer th:replace="~{fragments/kopffuss :: fuss}">Das hier auch nicht</footer>
+</body>
+</html>

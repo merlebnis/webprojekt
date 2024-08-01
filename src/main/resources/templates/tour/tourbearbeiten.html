@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>MIfahrzentrale</title>
+        <link rel="stylesheet"th:href="@{/css/style.css}" />
+        <th:block th:replace="~{fragments/kopffuss :: kopf}">Das sollte nicht erscheinen</th:block>
+        <div th:replace="~{fragments/kopffuss :: info}">wichtiges Zeug</div>
+    </head>
+<body>
+    <h1 th:if="${tourid} gt 0" th:text="#{tourformular.titel(${tourid})}">tourformular id bearbeiten</h1>
+    <h1 th:if="${tourid} eq 0" th:text="#{tourformular.titel.neu}">tourformular neu</h1>
+    <form th:action="@{#}" th:object="${tourformular}" modelAttribute="tourformular" method="post" th:method="POST">
+        <label th:text="#{tour.anbieter}">Anbieter</label><br/>
+        <select th:field="*{anbieter}" name="anbieter" th:errorclass="error">
+            <option th:each="auswahl: *{alleAnbieter}" th:value="${auswahl.id}" th:text="${auswahl.name}"></option>
+        </select>
+        <p th:if="${#fields.hasErrors('anbieter')}" th:errors="*{anbieter}" class="errortext">Anbieter error</p>
+        <br/>
+        
+        <label th:text="#{tour.abfahrdatetime}">Abfahrt</label><br/>
+        <input type="datetime-local" th:field="*{abfahrDateTime}" name="abfahrDateTime" size="40" maxlength="30" th:errorclass="error"/><br/>
+        <p th:if="${#fields.hasErrors('abfahrDateTime')}" th:errors="*{abfahrDateTime}" class="errortext">Keine korrekte Abfahrtszeit</p>
+
+        <label th:text="#{tour.preis}">Preis</label><br/>
+        <input type="number" th:field="*{preis}" name="preis" size="40" maxlength="30" th:errorclass="error"/><br/>
+        <p th:if="${#fields.hasErrors('preis')}" th:errors="*{preis}" class="errortext">Preis muss positiv sein</p>
+
+        <label th:text="#{tour.plaetze}">Plaetze</label><br/>
+        <input type="number" th:value="*{plaetze}" name="plaetze" size="40" th:errorclass="error"/><br/>
+        <p th:if="${#fields.hasErrors('plaetze')}" th:errors="*{plaetze}" class="errortext">muss mindestens einen Platz anbieten</p>
+
+
+        <label th:text="#{tour.startort}">startort</label><br/>
+        <select th:field="*{startOrt}" name="startort" th:errorclass="error">
+            <option th:each="auswahl: *{alleOrte}" th:value="${auswahl.id}" th:text="${auswahl.name}"></option>
+        </select>
+        <p th:if="${#fields.hasErrors('startOrt')}" th:errors="*{startOrt}" class="errortext">startort error</p>
+        <br/>
+
+        <label th:text="#{tour.zielort}">zielort</label><br/>
+        <select th:field="*{zielOrt}" name="zielort" th:errorclass="error">
+            <option th:each="auswahl: *{alleOrte}" th:value="${auswahl.id}" th:text="${auswahl.name}"></option>
+        </select>
+        <p th:if="${#fields.hasErrors('zielOrt')}" th:errors="*{zielOrt}" class="errortext">zielort error</p>
+        <br/>
+
+        <label th:text="#{tour.fahrgastinfos}">fahrgastinfos</label><br/>
+        <input type="text" th:field="*{info}" name="fahrgastinfos" size="40" maxlength="400" th:errorclass="error"/><br/>
+        <p th:if="${#fields.hasErrors('info')}" th:errors="*{info}" class="errortext">fahrgastinfos error</p>
+
+        <input type="Submit" name="ok" value="ok"><br/>
+    </form>
+    <footer th:replace="~{fragments/kopffuss :: fuss}">Das hier auch nicht</footer>
+</body>
+</html>
